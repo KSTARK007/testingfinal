@@ -131,8 +131,8 @@ $(document).ready(function() {
                 $('#successAlert').hide();
                 $('#load').hide();
             }
-            if (data.code == 406) {
-                $('#errorAlert').text("not a valid dataTime").show();
+            if (data.code == 404) {
+                $('#errorAlert').text("no Acts in a categorie").show();
                 $('#successAlert').hide();
                 $('#load').hide();
             }
@@ -257,59 +257,6 @@ $(document).ready(function() {
             }});
 
     });
-
-    $("#catup").click(function(e){
-        $('#load').show();
-        $.ajax({
-            data: [$("#catval").val()],
-            dataType : "json",
-            contentType: 'application/json',
-            type : 'GET',
-            url : 'http://3.94.45.77/api/v1/categories/'+ $("#cat").find(":selected").text() +'/acts',
-            success : function(data){
-            if (data.code == 400) {
-                $('#errorAlert').text("categories not avaliable").show();
-                $('#successAlert').hide();
-                $('#load').hide();
-            }
-
-            if (data.code == 405) {
-                $('#errorAlert').text("actId repeated").show();
-                $('#successAlert').hide();
-                $('#load').hide();
-            }
-            if (data.code == 406) {
-                $('#errorAlert').text("not a valid dataTime").show();
-                $('#successAlert').hide();
-                $('#load').hide();
-            }
-            if(data.code == 407) {
-                $('#errorAlert').text("Username not avaliable").show();
-                $('#successAlert').hide();
-                $('#load').hide();
-            }
-            if(data.code == 408) {
-                $('#errorAlert').text("Base64 error").show();
-                $('#successAlert').hide();
-                $('#load').hide();
-            }
-            if(data.code == 409) {
-                $('#errorAlert').text("unexpected upvote data sent").show();
-                $('#successAlert').hide();
-                $('#load').hide();
-            }
-            if(data.code == 410) {
-                $('#errorAlert').text("Category name wrong").show();
-                $('#successAlert').hide();
-                $('#load').hide();
-            }
-            else {
-                $('#load').hide();
-                add
-            }
-            }});
-        event.preventDefault();});
-
 
 
 });
