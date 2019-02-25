@@ -132,7 +132,7 @@ $(document).ready(function() {
                 $('#load').hide();
             }
             if (data.code == 404) {
-                $('#errorAlert').text("no Acts in a categorie").show();
+                $('#errorAlert').text("no Acts in a category").show();
                 $('#successAlert').hide();
                 $('#load').hide();
             }
