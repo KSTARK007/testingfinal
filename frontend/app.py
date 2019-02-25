@@ -21,7 +21,12 @@ def start():
 
 @app.route('/<var>')
 def index(var):
-	return render_template('index.html',val = var)
+	try:
+		int(var)
+		return render_template('index.html',val = var)
+	except Exception as e:
+		return render_template('error.html',errorValue=404)
+
 @app.route('/signup')
 def signup():
 	return render_template('signup.html')

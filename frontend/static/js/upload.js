@@ -18,6 +18,16 @@ function dateCal(){
     return time;
 }
 
+
+function setCat(data){
+    var o = document.createElement("option");
+    o.text = data;
+    o.value = data
+    document.getElementById("cat").add(o);
+}
+
+
+
 function getBase64(file) {
     var encoded = null;
     const reader = new FileReader();
@@ -40,6 +50,14 @@ $(document).ready(function() {
         getBase64(e.target.files[0])
     });
     
+     $.get('http://3.94.45.77/api/v1/categories',function(d){
+            for(var obj in d){
+                setCat(obj)
+            }
+    });
+
+
+
     $("#upload").click(function(e){
         if ($("#b64").html() =="" || $('#username').val()=="" || $('#caption').val() == "") {
             $('#errorAlert').text("empty fields").show();
