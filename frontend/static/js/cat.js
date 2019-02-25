@@ -52,8 +52,7 @@ function addchild(data)
     div22.setAttribute("id","dele");
 
     div22Del = document.createElement("button");
-    div22Del.setAttribute("class" , "btn btn-danger col-m-2");
-    div22Del.setAttribute("id","del");
+    div22Del.setAttribute("class" , "btn btn-danger col-m-2 del");
     div22Del.innerHTML = "Delete";
 
     div22.appendChild(div22Del);
@@ -75,19 +74,16 @@ function addchild(data)
     div24.setAttribute("id","lidis");
 
     div24B1 = document.createElement("button");
-    div24B1.setAttribute("class" , "btn btn-primary col-m-4");
-    div24B1.setAttribute("id","up");
+    div24B1.setAttribute("class" , "btn btn-primary col-m-4 up");
     div24B1.innerHTML = "Upvote";
 
     pre1 = document.createElement("pre");
-    pre1.setAttribute("class" , "col-m-4 large");
+    pre1.setAttribute("class" , "col-m-4 large vote");
     pre1.setAttribute("style","font-size: 20px;");
-    pre1.setAttribute("id","vote");
     pre1.innerHTML = data.upvote;
 
     div24B2 = document.createElement("button");
-    div24B2.setAttribute("class" , "btn btn-danger col-m-4");
-    div24B2.setAttribute("id","downup");
+    div24B2.setAttribute("class" , "btn btn-danger col-m-4 downup");
     div24B2.innerHTML = "Downvote";
     
     div24.appendChild(div24B1);
@@ -105,9 +101,6 @@ function removeChlid(){
     var item = document.getElementById("images");
     item.parentNode.removeChild(item);
     document.body.appendChild(k)
-}
-function removeVal(data){
-    document.getElementById
 }
 
 $(document).ready(function() {
@@ -178,36 +171,145 @@ $(document).ready(function() {
             }});
         event.preventDefault();});
 
-    $("#del").click(function(e){
-        alert("ASdas")
+    $('body').on('click','button.del',function(e){
         $('#load').show();
-        alert($(this).parent().siblings("#texts").children('#actid').text())
-         // $.ajax({
-         //    dataType : "json",
-         //    contentType: 'application/json',
-         //    type : 'DELETE',
-         //    url : 'http://3.94.45.77/api/v1/acts/0',
-         //    success : function(data){
+        var a = $(this).parent().siblings("#texts").children('#actid').text().split(")")[0];
+        alert(a)
+         $.ajax({
+            dataType : "json",
+            contentType: 'application/json',
+            type : 'DELETE',
+            url : 'http://3.94.45.77/api/v1/acts/'+a,
+            success : function(data){
 
-         //    if (data.code == 405) {
-         //        $('#errorAlert').text("actId repeated").show();
-         //        $('#successAlert').hide();
-         //        $('#load').hide();
-         //    }
+            if (data.code == 405) {
+                $('#errorAlert').text("actId repeated").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
 
-         //    else {
-         //        $('#load').hide();
-         //        removeChlid()
-         //        if(data.length == 0 ){
-         //            $('#errorAlert').text("Category name wrong").show();
-         //            $('#successAlert').hide();
-         //        }
-         //        var j ;
-         //        for(j=0;j<data.length;j++){
-         //            addchild(data[j])
-         //        }
-         //    }}});
+            else {
+                $('#load').hide();
+                removeChlid()
+                if(data.length == 0 ){
+                    $('#errorAlert').text("Category name wrong").show();
+                    $('#successAlert').hide();
+                }
+                var j ;
+                for(j=0;j<data.length;j++){
+                    addchild(data[j])
+                }
+            }}});
+     });
+    
+    $('body').on('click','button.up',function(e){
+        $('#load').show();
+        var a = $(this).parent().siblings("#texts").children('#actid').text().split(")")[0];
+        var k = $(this).siblings('pre')
+         $.ajax({
+            data : JSON.stringify({actId : parseInt($(this).parent().siblings("#texts").children('#actid').text().split(")")[0])}),
+            dataType : "json",
+            contentType: 'application/json',
+            type : 'POST',
+            url : 'http://3.94.45.77/api/v1/acts/upvote',
+            success : function(data){
+            if (data.code == 400) {
+                $('#errorAlert').text("act does not exist").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+
+            if(data.code == 200) {
+                $('#load').hide();
+                var v = k.html()
+                v = parseInt(v)+1;
+                k.text(v)
+            }
+
+            }});
+
     });
+
+    $('body').on('click','button.downup',function(e){
+            $('#load').show();
+            var a = $(this).parent().siblings("#texts").children('#actid').text().split(")")[0];
+            var k = $(this).siblings('pre')
+             $.ajax({
+                data : JSON.stringify({actId : parseInt($(this).parent().siblings("#texts").children('#actid').text().split(")")[0])}),
+                dataType : "json",
+                contentType: 'application/json',
+                type : 'POST',
+                url : 'http://3.94.45.77/api/v1/acts/downvote',
+                success : function(data){
+                if (data.code == 400) {
+                    $('#errorAlert').text("act does not exist").show();
+                    $('#successAlert').hide();
+                    $('#load').hide();
+                }
+
+                if(data.code == 200) {
+                    $('#load').hide();
+                    var v = k.html()
+                    v = parseInt(v)-1;
+                    k.text(v)
+                }
+
+            }});
+
+    });
+
+    $("#catup").click(function(e){
+        $('#load').show();
+        $.ajax({
+            data: [$("#catval").val()],
+            dataType : "json",
+            contentType: 'application/json',
+            type : 'GET',
+            url : 'http://3.94.45.77/api/v1/categories/'+ $("#cat").find(":selected").text() +'/acts',
+            success : function(data){
+            if (data.code == 400) {
+                $('#errorAlert').text("categories not avaliable").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+
+            if (data.code == 405) {
+                $('#errorAlert').text("actId repeated").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+            if (data.code == 406) {
+                $('#errorAlert').text("not a valid dataTime").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+            if(data.code == 407) {
+                $('#errorAlert').text("Username not avaliable").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+            if(data.code == 408) {
+                $('#errorAlert').text("Base64 error").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+            if(data.code == 409) {
+                $('#errorAlert').text("unexpected upvote data sent").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+            if(data.code == 410) {
+                $('#errorAlert').text("Category name wrong").show();
+                $('#successAlert').hide();
+                $('#load').hide();
+            }
+            else {
+                $('#load').hide();
+                add
+            }
+            }});
+        event.preventDefault();});
+
 
 
 });
