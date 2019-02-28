@@ -30,22 +30,21 @@ function addchild(data)
     div1.setAttribute("class","container-fluid");
 
     div21 = document.createElement("div");
-    div21.setAttribute("class","row d-flex justify-content-between");
+    div21.setAttribute("class","row d-flex justify-content-center");
     div21.setAttribute("id","texts");
 
     div21Span1 = document.createElement("span");
     div21Span1.setAttribute("id","actid");
-    div21Span1.setAttribute("class","col-lg-1");
+    div21Span1.setAttribute("class","col-lg-5");
     div21Span1.innerHTML = data.actId;
 
     div21Span2 = document.createElement("span");
     div21Span2.setAttribute("id","caption");
-    div21Span2.setAttribute("class","col-lg-11");
+    div21Span2.setAttribute("class","col-lg-7");
     div21Span2.innerHTML = data.caption;
 
     div21.appendChild(div21Span1);
     div21.appendChild(div21Span2);
-    div1.appendChild(div21);
 
     div22 = document.createElement("div");
     div22.setAttribute("class","row d-flex justify-content-center");
@@ -56,7 +55,6 @@ function addchild(data)
     div22Del.innerHTML = "Delete";
 
     div22.appendChild(div22Del);
-    div1.appendChild(div22);
 
     div23 = document.createElement("div");
     div23.setAttribute("class","row d-flex justify-content-center");
@@ -67,7 +65,13 @@ function addchild(data)
     img.setAttribute("src",data.img);
 
     div23.appendChild(img);
+    div1.appendChild(document.createElement("br"));
+    div1.appendChild(div22);
+    div1.appendChild(document.createElement("br"));
     div1.appendChild(div23);
+    div1.appendChild(document.createElement("br"));
+    div1.appendChild(div21);
+    div1.appendChild(document.createElement("br"));
 
     div24 = document.createElement("div");
     div24.setAttribute("class","row d-flex justify-content-center");
