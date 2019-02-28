@@ -49,5 +49,17 @@ def upload():
 def cat():
 	return render_template('cat.html')
 
+@app.route('/addcat')
+def addcat():
+	return render_template('addcat.html')
+
+@app.route('/rmuser')
+def rmusr():
+	return render_template('rmuser.html')
+
+@app.route('/rmcat')
+def rmcat():
+	return render_template('rmcat.html')
+
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=80,debug=True)

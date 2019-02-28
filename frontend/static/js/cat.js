@@ -13,9 +13,9 @@ function getBase64(file) {
   });
 }
 
-function setCat(data){
+function setCat(data,val){
     var o = document.createElement("option");
-    o.text = data;
+    o.text = data + "-" + val;
     o.value = data
     document.getElementById("cat").add(o);
 }
@@ -25,7 +25,7 @@ function putBase64(value) {
 }
 
 function addchild(data)
-{   
+{
     var div1 = document.createElement("div");
     div1.setAttribute("class","container-fluid");
 
@@ -65,7 +65,7 @@ function addchild(data)
     var img = document.createElement("img");
     img.setAttribute("height","300");
     img.setAttribute("src",data.img);
-    
+
     div23.appendChild(img);
     div1.appendChild(div23);
 
@@ -85,7 +85,7 @@ function addchild(data)
     div24B2 = document.createElement("button");
     div24B2.setAttribute("class" , "btn btn-danger col-m-4 downup");
     div24B2.innerHTML = "Downvote";
-    
+
     div24.appendChild(div24B1);
     div24.appendChild(pre1);
     div24.appendChild(div24B2);
@@ -108,7 +108,7 @@ $(document).ready(function() {
 
     $.get('http://3.94.45.77/api/v1/categories',function(d){
             for(var obj in d){
-                setCat(obj)
+                setCat(obj,d[obj])
             }
     });
 
@@ -118,7 +118,7 @@ $(document).ready(function() {
             dataType : "json",
             contentType: 'application/json',
             type : 'GET',
-            url : 'http://3.94.45.77/api/v1/categories/'+ $("#cat").find(":selected").text() +'/acts',
+            url : 'http://3.94.45.77/api/v1/categories/'+ $("#cat").find(":selected").text().split("-")[0] +'/acts',
             success : function(data){
             if (data.code == 400) {
                 $('#errorAlert').text("categories not avaliable").show();
@@ -132,7 +132,7 @@ $(document).ready(function() {
                 $('#load').hide();
             }
             if (data.code == 404) {
-                $('#errorAlert').text("no Acts in a category").show();
+                $('#errorAlert').text("no Acts in This category").show();
                 $('#successAlert').hide();
                 $('#load').hide();
             }
@@ -201,7 +201,7 @@ $(document).ready(function() {
                 }
             }}});
      });
-    
+
     $('body').on('click','button.up',function(e){
         $('#load').show();
         var a = $(this).parent().siblings("#texts").children('#actid').text().split(")")[0];
