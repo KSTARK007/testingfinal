@@ -71,7 +71,7 @@ $(document).ready(function() {
                     timestamp : dateCal(),
                     caption : $('#caption').val(),
                     categoryName : $("#cat").find(":selected").text(),
-                    imgB64 : $("#b64").html()
+                    img : $("#b64").html()
                 }), 
                 dataType : "json",
                 contentType: 'application/json',
