@@ -43,14 +43,14 @@ function getBase64(file) {
 }
 
 $(document).ready(function() {
-    $.get('http://3.94.45.77/api/get/actId',function(d){
+    $.get('http://52.3.134.60:8000/api/get/actId',function(d){
             $("#actId").val(parseInt(d)+1);
     });
     $("#inp").change(function(e){
         getBase64(e.target.files[0])
     });
     
-     $.get('http://3.94.45.77/api/v1/categories',function(d){
+     $.get('http://52.3.134.60:8000/api/v1/categories',function(d){
             for(var obj in d){
                 setCat(obj)
             }
@@ -76,7 +76,7 @@ $(document).ready(function() {
                 dataType : "json",
                 contentType: 'application/json',
                 type : 'POST',
-                url : 'http://3.94.45.77/api/v1/acts',
+                url : 'http://52.3.134.60:8000/api/v1/acts',
                 success : function(data){
 
                 if (data.code == 405) {

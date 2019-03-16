@@ -9,7 +9,7 @@ $("#upload").click(function(e){
 	myarray.push(a);
         $.ajax({
                 type: 'POST',
-                url:"http://3.94.45.77/api/v1/categories", 
+                url:"http://52.3.134.60:8000/api/v1/categories", 
 				data: JSON.stringify(myarray),
 				contentType:"application/json",		
 				dataType:"json",

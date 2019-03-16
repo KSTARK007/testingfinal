@@ -110,7 +110,7 @@ function removeChlid(){
 $(document).ready(function() {
     $('#load').hide();
 
-    $.get('http://3.94.45.77/api/v1/categories',function(d){
+    $.get('http://52.3.134.60:8000/api/v1/categories',function(d){
             for(var obj in d){
                 setCat(obj,d[obj])
             }
@@ -122,7 +122,7 @@ $(document).ready(function() {
             dataType : "json",
             contentType: 'application/json',
             type : 'GET',
-            url : 'http://3.94.45.77/api/v1/categories/'+ $("#cat").find(":selected").text().split("-")[0] +'/acts',
+            url : 'http://52.3.134.60:8000/api/v1/categories/'+ $("#cat").find(":selected").text().split("-")[0] +'/acts',
             success : function(data){
             if (data.code == 400) {
                 $('#errorAlert').text("categories not avaliable").show();
@@ -183,7 +183,7 @@ $(document).ready(function() {
             dataType : "json",
             contentType: 'application/json',
             type : 'DELETE',
-            url : 'http://3.94.45.77/api/v1/acts/'+a,
+            url : 'http://52.3.134.60:8000/api/v1/acts/'+a,
             success : function(data){
 
             if (data.code == 405) {
@@ -215,7 +215,7 @@ $(document).ready(function() {
             dataType : "json",
             contentType: 'application/json',
             type : 'POST',
-            url : 'http://3.94.45.77/api/v1/acts/upvote',
+            url : 'http://52.3.134.60:8000/api/v1/acts/upvote',
             success : function(data){
             if (data.code == 400) {
                 $('#errorAlert').text("act does not exist").show();
@@ -243,7 +243,7 @@ $(document).ready(function() {
                 dataType : "json",
                 contentType: 'application/json',
                 type : 'POST',
-                url : 'http://3.94.45.77/api/v1/acts/downvote',
+                url : 'http://52.3.134.60:8000/api/v1/acts/downvote',
                 success : function(data){
                 if (data.code == 400) {
                     $('#errorAlert').text("act does not exist").show();

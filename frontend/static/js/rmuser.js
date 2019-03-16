@@ -9,7 +9,7 @@ function setCat(data,val){
 $(document).ready(function() {
     $('#load').hide();
 
-    $.get('http://3.94.45.77/api/v1/userlist',function(d){
+    $.get('http://52.3.134.60:8080/api/v1/userlist',function(d){
             for(var obj in d){
                 setCat(obj,d[obj])
             }
@@ -22,7 +22,7 @@ $(document).ready(function() {
             dataType : "json",
             contentType: 'application/json',
             type : 'DELETE',
-            url : 'http://3.94.45.77/api/v1/users/'+ $("#user").find(":selected").text().split("-")[1] ,
+            url : 'http://52.3.134.60:8080/api/v1/users/'+ $("#user").find(":selected").text().split("-")[1] ,
             success : function(data){
             if (data.code == 404) {
                 $('#errorAlert').text("no USER of this name").show();
