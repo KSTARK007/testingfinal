@@ -22,7 +22,7 @@ $(document).ready(function() {
             dataType : "json",
             contentType: 'application/json',
             type : 'POST',
-            url : 'http://52.3.134.60:8080/api/v1/users/login',
+            url : 'http://3.213.58.206/api/v1/users/login',
             success : function(data){
 
             if (data.code == 405 || data.code == 400) {

@@ -26,8 +26,6 @@ function setCat(data){
     document.getElementById("cat").add(o);
 }
 
-
-
 function getBase64(file) {
     var encoded = null;
     const reader = new FileReader();
@@ -38,19 +36,19 @@ function getBase64(file) {
         encoded += '='.repeat(4 - (encoded.length % 4));
       }
       document.getElementById("img").src = reader.result;
-      document.getElementById("b64").innerHTML = reader.result;
+      document.getElementById("b64").innerHTML = encoded;
   });
 }
 
 $(document).ready(function() {
-    $.get('http://52.3.134.60:8000/api/get/actId',function(d){
+    $.get('http://3.213.58.206/api/get/actId',function(d){
             $("#actId").val(parseInt(d)+1);
     });
     $("#inp").change(function(e){
         getBase64(e.target.files[0])
     });
     
-     $.get('http://52.3.134.60:8000/api/v1/categories',function(d){
+     $.get('http://3.213.58.206/api/v1/categories',function(d){
             for(var obj in d){
                 setCat(obj)
             }
@@ -71,12 +69,12 @@ $(document).ready(function() {
                     timestamp : dateCal(),
                     caption : $('#caption').val(),
                     categoryName : $("#cat").find(":selected").text(),
-                    img : $("#b64").html()
+                    imgB64 : $("#b64").html()
                 }), 
                 dataType : "json",
                 contentType: 'application/json',
                 type : 'POST',
-                url : 'http://52.3.134.60:8000/api/v1/acts',
+                url : 'http://3.213.58.206/api/v1/acts',
                 success : function(data){
 
                 if (data.code == 405) {

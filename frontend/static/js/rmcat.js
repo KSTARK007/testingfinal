@@ -9,7 +9,7 @@ function setCat(data,val){
 $(document).ready(function() {
     $('#load').hide();
 
-    $.get('http://52.3.134.60:8000/api/v1/categories',function(d){
+    $.get('http://3.213.58.206/api/v1/categories',function(d){
             for(var obj in d){
                 setCat(obj,d[obj])
             }
@@ -21,7 +21,7 @@ $(document).ready(function() {
             dataType : "json",
             contentType: 'application/json',
             type : 'DELETE',
-            url : 'http://52.3.134.60:8000/api/v1/categories/'+ $("#cat").find(":selected").text().split("-")[0] ,
+            url : 'http://3.213.58.206/api/v1/categories/'+ $("#cat").find(":selected").text().split("-")[0] ,
             success : function(data){
             if (data.code == 404) {
                 $('#errorAlert').text("no category of this name").show();
